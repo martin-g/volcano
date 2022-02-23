@@ -57,7 +57,7 @@ fi
 # overwrite the tag name into values yaml
 sed -i "s/latest/${VOLCANO_IMAGE_TAG}/g" ${RELEASE_FOLDER}/helm/chart/volcano/values.yaml
 
-if [[ "${DOCKER_USERNAME}xxx" == "xxx" -o "${DOCKER_PASSWORD}xxx" == "xxx" ]];then
+if [ "${DOCKER_USERNAME}xxx" == "xxx" ] || [ "${DOCKER_PASSWORD}xxx" == "xxx" ];then
   echo "docker username or password not found, quit uploading images"
   exit 1
 fi
