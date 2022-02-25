@@ -59,7 +59,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Daily Release
-        run: make DOCKER_PLATFORMS="linux/amd64,linux/arm64" BUILDX_OUTPUT_TYPE=registry IMAGE_PREFIX=ghcr.io/martin-g/volcano-from-gha TAG=latest RELEASE_VER=latest DOCKER_USERNAME=${{ github.actor }} DOCKER_PASSWORD=${{ secrets.GITHUB_TOKEN }}  CC=/usr/local/musl/bin/musl-gcc release
+        run: make DOCKER_PLATFORMS="linux/amd64,linux/arm64" BUILDX_OUTPUT_TYPE=registry IMAGE_PREFIX=ghcr.io/martin-g/volcano-from-gha TAG=latest RELEASE_VER=latest CC=/usr/local/musl/bin/musl-gcc release
         working-directory: ./src/github.com/${{ github.repository }}
 
       - name: Logout DockerHub
