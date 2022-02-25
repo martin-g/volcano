@@ -59,7 +59,7 @@ sed -i "s/latest/${VOLCANO_IMAGE_TAG}/g" ${RELEASE_FOLDER}/helm/chart/volcano/va
 
 if [ "${DOCKER_USERNAME}xxx" == "xxx" ] || [ "${DOCKER_PASSWORD}xxx" == "xxx" ];then
   echo "docker username or password not found, quit uploading images"
-  exit 1
+  exit 0
 fi
 
 echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
