@@ -30,7 +30,7 @@ set -o pipefail
 #   7. generate zip file
 
 VK_ROOT=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/..
-BINARY_FOLDER=${VK_ROOT}/${BIN_DIR}/${REL_OSARCH}
+BINARY_FOLDER=${VK_ROOT}/${BIN_DIR}
 RELEASE_FOLDER=${VK_ROOT}/${RELEASE_DIR}
 RELEASE_BINARY=${RELEASE_FOLDER}/bin
 README_FILE=${VK_ROOT}/installer/README.md
@@ -44,7 +44,7 @@ if [[ ! -d ${RELEASE_BINARY} ]];then
     mkdir ${RELEASE_BINARY}
 fi
 
-cp -r ${BINARY_FOLDER} ${RELEASE_BINARY}
+cp -r ${BINARY_FOLDER}/* ${RELEASE_BINARY}
 
 cp ${README_FILE} ${RELEASE_FOLDER}
 
@@ -57,11 +57,9 @@ fi
 # overwrite the tag name into values yaml
 sed -i "s/latest/${VOLCANO_IMAGE_TAG}/g" ${RELEASE_FOLDER}/helm/chart/volcano/values.yaml
 
-if [[ "${DOCKER_USERNAME}xxx" == "xxx" ]];then
-  if [[ "${DOCKER_PASSWORD}xxx" == "xxx" ]];then
-    echo "docker username or password not found, quit uploading images"
-    exit 0
-  fi
+if [ "${DOCKER_USERNAME}xxx" == "xxx" ] || [ "${DOCKER_PASSWORD}xxx" == "xxx" ];then
+  echo "docker username or password not found, quit uploading images"
+  exit 0
 fi
 
 echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
